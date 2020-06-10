@@ -107,8 +107,8 @@ export default {
             },
             {
               title: "商品管理",
-              name: "product",
-              path: "/product"
+              name: "specifications",
+              path: "/specifications"
             },
             {
               title: "配送管理",

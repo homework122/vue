@@ -11,7 +11,18 @@ const routes = [
   {
     path:'/Refund',
     component: () => import('../views/Refund')
-  }
+  },
+    // 分类
+    {
+        path:'/classification',
+        component: () => import('../views/classification')
+    },
+    // 商品管理
+    {
+        path:'/specifications',
+        component: () => import('../views/specifications')
+    },
+
 
 ];
 
