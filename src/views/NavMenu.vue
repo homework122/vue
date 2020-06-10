@@ -182,6 +182,24 @@ export default {
             }
           ]
         },
+         // 优惠券
+        {
+          title: "卡券中心",
+          name: "kaquan",
+          path: "/kaquan",
+          childen: [
+            {
+              title: "发布优惠券",
+              name: "fabu",
+              path: "/fabu"
+            },
+            {
+              title: "优惠券管理",
+              name: "kaguanli",
+              path: "/kaguanli"
+            }
+          ]
+        },
         {
           title: "广告管理",
           name: "ad",
