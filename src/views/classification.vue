@@ -9,7 +9,7 @@
                 size="small"
                 class="input"
                 placeholder="请输入分类名称"
-                v-model="input"
+                v-model="stan_name"
                 maxlength="30"
                 clearable
         >
@@ -198,7 +198,9 @@
                 }],
                 val: '',
                 dialogTableVisible: false,
-                input: "",
+                //查询
+                stan_name: "",
+
                 //    批量删除
                 disabled: true,
                 //    表格假数据
@@ -275,7 +277,7 @@
             // 查询
             query(){
               for(var i=0;i<this.tableData.length;i++) {
-                  if (this.tableData[i].comc_name.indexOf(this.input)>=0) {
+                  if (this.tableData[i].comc_name.indexOf(this.stan_name)>=0) {
                       this.tableDatap.push(this.tableData[i])
                   }else{
                       this.$message('没有数据');
@@ -357,6 +359,7 @@ mounted:function () {
     .block{
         margin-top: 20px;
         margin-bottom: 20px;
+        text-align: center;
     }
     /*图片*/
     .el-upload{
