@@ -9,7 +9,7 @@
                 size="small"
                 class="input"
                 placeholder="请输入分类名称"
-                v-model="input"
+                v-model="stan_name"
                 maxlength="30"
                 clearable
         >
@@ -32,7 +32,7 @@
         <div>
             <!--弹出框-->
             <el-dialog
-                    title="商品分类"
+                    title="商品规格"
                     :visible.sync="dialogTableVisible"
                     width="50%"
             >
@@ -40,19 +40,37 @@
                     <el-col :span="15">
                         <div class="grid-content bg-purple"> 分类名称：
                             <template>
-                                <el-select v-model="val" clearable placeholder="分类名称">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
+                                <!--<el-select v-model="val" clearable placeholder="分类名称">-->
+                                    <!--<el-option-->
+                                            <!--v-for="item in options"-->
+                                            <!--:key="item.value"-->
+                                            <!--:label="item.label"-->
+                                            <!--:value="item.value">-->
+                                    <!--</el-option>-->
+                                <!--</el-select>-->
+                                商品编号：<el-input placeholder="商品编号" v-model="com_no" clearable class="width"></el-input>
                             </template>
                             <div>
                                 商品名称：
-                                <el-input placeholder="商品名称" v-model="text" clearable class="width"></el-input>
+                                <el-input placeholder="商品名称" v-model="stan_name" clearable class="width"></el-input>
                             </div>
+                            <div>
+                                出售价格：
+                                <el-input placeholder="出售价格" v-model="stan_price" clearable class="width"></el-input>
+                            </div>
+                            <div>
+                                原价：
+                                <el-input placeholder="原价" v-model="stan_pprice" clearable class="width"></el-input>
+                            </div>
+                            <div>
+                                库存：
+                                <el-input placeholder="库存" v-model="stan_stock" clearable class="width"></el-input>
+                            </div>
+                            <div>
+                                商品名称：
+                                <el-input placeholder="商品名称" v-model="stan_company" clearable class="width"></el-input>
+                            </div>
+
                             <div class="center">
                                 <p>分类描述：</p>
                                 <textarea name="maosu" id="" cols="30" rows="10" v-model="maosu" placeholder="分类描述"></textarea>
@@ -160,6 +178,8 @@
                 currentPage: 1,
                 // 显示条数
                 pageSize: 5,
+                //查询名称
+                stan_name: "",
                 //添加分类名称
                 text:'',
                 //添加分类描述
@@ -186,7 +206,7 @@
                 }],
                 val: '',
                 dialogTableVisible: false,
-                input: "",
+
                 //    批量删除
                 disabled: true,
                 //    表格假数据
@@ -263,7 +283,7 @@
             // 查询
             query(){
                 for(var i=0;i<this.tableData.length;i++) {
-                    if (this.tableData[i].comc_name.indexOf(this.input)>=0) {
+                    if (this.tableData[i].comc_name.indexOf(this.stan_name)>=0) {
                         this.tableDatap.push(this.tableData[i])
                     }else{
                         this.$message('没有数据');
@@ -341,6 +361,7 @@
     .block{
         margin-top: 20px;
         margin-bottom: 20px;
+        text-align: center;
     }
     /*图片*/
     .el-upload{
