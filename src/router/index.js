@@ -22,6 +22,11 @@ const routes = [
         path:'/specifications',
         component: () => import('../views/specifications')
     },
+// 发不优惠券
+    {
+        path:'/youhuiquan',
+        component: () => import('../views/youhuiquan')
+    },
 
 
 ];

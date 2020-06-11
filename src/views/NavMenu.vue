@@ -190,8 +190,8 @@ export default {
           childen: [
             {
               title: "发布优惠券",
-              name: "fabu",
-              path: "/fabu"
+              name: "youhuiquan",
+              path: "/youhuiquan"
             },
             {
               title: "优惠券管理",
