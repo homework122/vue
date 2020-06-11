@@ -75,12 +75,15 @@
               prop="status"
               label="退款状态"
               width="180">
+        <template slot-scope="scope">
+          <span>{{scope.row.status | statusForm(scope.row.status)}}</span>
+        </template>
       </el-table-column>
       <el-table-column
               prop="address"
               label="买家">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -114,14 +117,14 @@
           buyerName: '王小虎',
           orderMoney:199,
           refundMoney:30,
-          status:1
+          status:0
         }, {
           refundId: '12345678',
           orderId: '123456999',
           buyerName: '王小虎',
           orderMoney:199,
           refundMoney:30,
-          status:1
+          status:2
         }, {
           refundId: '12345678',
           orderId: '123456999',
@@ -141,7 +144,21 @@
         rows.splice(index, 1);
       },
       handleClick(row) {
+        // 点击查看的时候将退款状态传递
+        this.$router.push({name:"RefundDetail",params:{statusId:row.status}})
+        // this.$router.push('/RefundDetail',{params:{statusId:row.status}})
         console.log(row);
+      }
+    },
+    filters:{
+      statusForm(status){
+        if(status==0){
+          return '退款关闭'
+        }else if(status==1){
+          return '退款成功'
+        }else if(status==2){
+          return '等待处理'
+        }
       }
     }
   }
