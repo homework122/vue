@@ -6,23 +6,34 @@
       <el-breadcrumb-item>退款详情</el-breadcrumb-item>
     </el-breadcrumb>
     <!--审核过程-->
-    <p>{{this.$route.params.statusId}}</p>
-    <div class="steps">
-      <el-steps :active="1"  simple>
-        <el-step :title=" date+ ' 提交申请'">
+    <!--获得传过来的值-->
+    <div class="steps" :data="date" v-if="sendStatus != 0">
+      <el-steps :active="activeCode"  simple>
+        <el-step title=" 1.提交申请" class="width25"  style="font-size: 40px">
         </el-step>
-        <el-step :title=" date+' 受理申请'">
+        <el-step title="  2.受理申请" class="width25">
         </el-step>
-        <el-step :title=" date+' 售后核查'">
+        <el-step title="  3.售后核查" class="width25">
         </el-step>
-        <el-step :title=" date +' 成功退款'">
+        <el-step title=" 4.成功退款"  class="width25">
+        </el-step>
+      </el-steps>
+      <!--处理时间-->
+      <el-steps :active="activeCode"  simple style="margin-top: 20px;" class="processDate">
+        <el-step :title=" date+ ' 提交'" v-show="dateProcess.submitD" class="width20">
+        </el-step>
+        <el-step :title=" date+' 受理'" v-show="dateProcess.acceptD" class="width20">
+        </el-step>
+        <el-step :title=" date+' 核查'" v-show="dateProcess.checkD" class="width20">
+        </el-step>
+        <el-step :title=" date +' 退款'" v-show="dateProcess.succesD" class="width20">
         </el-step>
       </el-steps>
     </div>
     <!--当前退款状态-->
     <div class="bg-refundStatus">
-      <p>当前退款状态:{{refundStatus}}</p>
-      <div v-if="rStatus" class="showDiffSta publicPadding">
+      <p class="publicPadding">当前退款状态:{{sendStatus |statusForm()}}</p>
+      <div v-if=" sendStatus ==2" class="showDiffSta publicPadding">
         <ul>
           <li>请您在进行同意或拒绝操作前，尽量充分于买家沟通达成一致，避免误解。</li>
           <li>尽量在买家退还货物后，同意退款，避免钱货两空!</li>
@@ -33,7 +44,7 @@
           <a href="#refundInfo"><el-button plain @click="rejectRefund()">拒绝退款</el-button></a>
         </div>
       </div>
-      <div v-if="isClose">
+      <div v-if="sendStatus ==0">
         <ul>
           <li>关闭原因: {{closeResult}}</li>
         </ul>
@@ -152,7 +163,14 @@
     name: "refundDetail",
     data(){
       return{
+        activeCode:1,//头部处理流程激活状态
         date:'2019/1/1',
+        dateProcess:{
+          submitD:'2019/1/1',
+          acceptD:'2019/1/1',
+          checkD:'2019/1/1',
+          succesD:'2019/1/1'
+        },//处理时间
         refundStatus:'运营后台申请退款，等待处理',
         rStatus:true,
         closeResult:'沟通不好',
@@ -182,6 +200,7 @@
           {date: '2016-09-14 16:04:05',info:'订单退款申请已提交，等待受理',operter:'天道客户'},
           {date: '2016-09-14 16:04:05',info:'订单退款申请已提交，等待受理',operter:'天道客户'}
         ],
+        sendStatus:this.$route.params.statusId,//退款管理页面传递过来的退款状态
         hideProInfo:true,//退款协议记录是否隐藏
         orderData: [{
           id: '12987122',
@@ -237,6 +256,14 @@
       }
     },
     methods: {
+      getActiveCode(){//处理流程获得当前激活状态
+        if(this.sendStatus == 1){
+           this.activeCode = 4
+        }else if(this.sendStatus == 2){
+          this.activeCode = 1
+
+        }
+      },
       hideTable() {
         console.log('hideTable')
         this.hideProInfo = false
@@ -269,23 +296,64 @@
       //     }
       //   }
       // }
+    },
+    filters:{
+      statusForm(status){
+        if(status==0){
+          return '退款关闭'
+        }else if(status==1){
+          return '退款成功'
+        }else if(status==2){
+          return '等待处理'
+        }
+      }
+    },
+    mounted() {
+      this.getActiveCode()
     }
   }
 </script>
 
 <style scoped>
   /*步骤条*/
+  .width25{
+  width: 25%;
+  }
+  .width20{
+    width: 20%;
+  }
   .steps{
     margin-top: 26px;
   }
+  /*步骤条结束*/
+
+  /*退款状态开始*/
   .bg-refundStatus{
+    margin-top: 20px;
     background-color: #F5F7FA;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   .publicPadding{
     padding-left: 30px;
   }
+  .publicPadding>p{
+    padding-left: 50px;
+  }
+  /*退款状态开始*/
   /*退款信息*/
   #refundInfo>div>div:nth-of-type(1){
     border-bottom: 1px solid #F5F7FA;
   }
+  .processDate{
+    font-size: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  /*等待处理样式开始*/
+  .showDiffSta>div a{
+    margin-right: 20px;
+    margin-top: 10px;
+  }
+  /*等待处理样式结束*/
 </style>

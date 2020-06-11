@@ -1,7 +1,7 @@
 <template>
   <div class="FlowRecord">
     <!--头部-->
-    <div id="headRecord"><h2>直营订单统计</h2></div>
+    <div id="headRecord"><h3>直营订单统计</h3></div>
 
     <!--内容-->
     <div id="containerRecord">

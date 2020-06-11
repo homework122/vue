@@ -34,6 +34,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">查询</el-button>
+          <el-button type="primary" @click="onRestart">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -137,8 +138,21 @@
     },
     methods: {
       onSubmit() {
+        // 查询
         console.log('submit!');
       },
+      // 重置
+      onRestart(){
+        console.log('onRestart')
+        this.formInline.refundId = ''
+        this.formInline.orderId = ''
+        this.formInline.status = ''
+        this.formInline.userName = ''
+        this.formInline.date1 = ''
+        this.formInline.date2 = ''
+
+      },
+
       // 表格
       deleteRow(index, rows) {
         rows.splice(index, 1);
