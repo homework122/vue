@@ -22,10 +22,15 @@ const routes = [
         path:'/specifications',
         component: () => import('../views/specifications')
     },
-// 发不优惠券
+// 发布优惠券
     {
         path:'/youhuiquan',
         component: () => import('../views/youhuiquan')
+    },
+    /*优惠券管理*/
+    {
+        path:'/kaguanli',
+        component: () => import('../views/kaguanli')
     },
 
 
